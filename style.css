@@ -18,7 +18,7 @@ font-family: 'Roboto Mono', monospace; */
 
 body {
     min-height: 100vh;
-    background-image: linear-gradient(#1C82AD, #34ADE4);
+    background-image: linear-gradient(#1C82AD, #166288);
 }
 
 header {
@@ -45,7 +45,8 @@ nav {
     align-items: flex-end;
 }
 
-nav a {
+nav a,
+h2 {
     font-family: 'Lacquer', cursive;
     color: white;
     font-size: 2.5rem;
@@ -55,3 +56,58 @@ nav a:hover {
     color: #24556b;
 }
 
+main {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main h1,
+main h2 {
+    width: 100%;
+    text-align: center;
+}
+
+.dog-card {
+    width: 250px;
+    padding: 1rem;
+    background-color: #D7D7D7;
+    border-radius: 8px;
+    position: relative;
+}
+
+.dog-card aside {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgb(12, 165, 78);
+    border-radius: 50%;
+    position: absolute;
+    top: -.8rem;
+    right: -.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lacquer', cursive;
+    color: white;
+    font-size: 1.5rem;
+    transform: rotateZ(20deg);
+}
+
+.dog-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 0px 0px 6px rgba(56, 57, 49, 0.312);
+}
+
+ul {
+    font-family: 'Roboto Mono', monospace;
+    color: rgb(22, 22, 22);
+    line-height: 1.5rem;
+    box-shadow: inset 2px 2px 6px rgba(56, 57, 49, 0.312);
+    border-radius: 5px;
+    padding: .5rem;
+}
