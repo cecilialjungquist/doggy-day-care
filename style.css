@@ -45,6 +45,7 @@ h1 {
     font-size: 4rem;
 }
 
+
 nav {
     display: flex;
     flex-direction: column;
@@ -62,6 +63,9 @@ h2 {
 nav a:hover {
     color: #24556b;
 }
+/* nav a:hover span {
+    animation: move 500ms ease-in forwards;
+} */
 
 main {
     display: flex;
@@ -190,6 +194,16 @@ footer {
 footer nav a {
     align-self: center;
 }
+
+/* @keyframes move {
+    from {
+        transform: translateX(0);
+    } to {
+        transform: translateX(200%);
+        opacity: 0;
+    }
+    
+} */
 
 @media screen and (min-width: 730px) {
 

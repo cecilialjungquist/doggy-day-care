@@ -3,7 +3,7 @@ const checkbox = document.getElementById('checkbox');
 const searchField = document.getElementById('search-field');
 const searchBtn = document.getElementById('search-btn');
 let dogs = '';
-let presentDogs = '';
+// let presentDogs = '';
 
 async function getDogs() {
 
@@ -11,8 +11,10 @@ async function getDogs() {
     dogs = await dogs.json();
     
     dogs.forEach(dog => {
-        let newDog = `
-            <article class="dog-card" id="${dog.chipNumber}">
+        let newDog = document.createElement('article');
+        newDog.classList.add('dog-card');
+        newDog.setAttribute('id', dog.chipNumber);
+        newDog.innerHTML = `
                 <aside>here</aside>
                 <img src="${dog.img}" alt="dog">
                 <ul>
@@ -23,24 +25,18 @@ async function getDogs() {
                     <li>owner: ${dog.owner.name} ${dog.owner.lastName}</li>
                     <li>phone: ${dog.owner.phoneNumber}</li>
                 </ul>
-            </article>
-            `
-        dogSectionEl.innerHTML += newDog;
+            `;
 
+        dogSectionEl.appendChild(newDog);
         
         if (!dog.present) {
-            // Kom på en bättre lösning här
+            // Kom på en bättre lösning här?
             document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
-            // document.getElementById(dog.chipNumber).style.display = 'none';
-        } else {
-            presentDogs += newDog;
-        };
+        }
+
         // Lagrar html så den alltid finns
         dog.html = newDog;
-        
     });
-    // Hur blir denna global utan att jag har lagrat den i nåt?
-    return dogs;
 };
 
 getDogs();
@@ -49,7 +45,12 @@ checkbox.addEventListener('change', () => {
     let val = checkbox.checked;
 
     if (val) {
-        dogSectionEl.innerHTML = presentDogs;
+        dogSectionEl.innerHTML = '';
+        dogs.forEach(dog => {
+            if (dog.present) {
+                dogSectionEl.appendChild(dog.html)
+            }
+        });
     } else {
         location.reload();
     }
@@ -71,7 +72,7 @@ searchBtn.addEventListener('click', (e) => {
             || dog.owner.lastName.toLowerCase() === searchTerm
             || dog.owner.name.toLowerCase() + ' ' + dog.owner.lastName.toLowerCase() === searchTerm ) {
 
-            dogSectionEl.innerHTML += dog.html;
+            dogSectionEl.appendChild(dog.html);
 
             if (!dog.present) {
                 document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
