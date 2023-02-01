@@ -1,5 +1,7 @@
 const ourDogsEl = document.getElementById('our-dogs');
 let dogSectionEl = document.querySelector('.dog-section');
+console.log(dogSectionEl);
+const takeMeBackEl = document.getElementById('take-me-back');
 
 
 async function getDogs() {
@@ -30,13 +32,18 @@ async function getDogs() {
     });
 };
 
-ourDogsEl.addEventListener('click', () => {
-    document.querySelector('header').style.display = 'none';
-    document.querySelector('main').style.display = 'flex';
+// ourDogsEl.addEventListener('click', () => {
+//     document.querySelector('header').style.display = 'none';
+//     document.querySelector('main').style.display = 'flex';
 
-    getDogs();
-});
+// });
 
+getDogs();
+
+// takeMeBackEl.addEventListener('click', () => {
+//     document.querySelector('header').style.display = 'flex';
+//     document.querySelector('main').style.display = 'none';
+// })
 
 // om hunden inte är här, display = none
 // glöm inte take me back

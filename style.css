@@ -21,7 +21,14 @@ body {
     background-image: linear-gradient(#1C82AD, #166288);
 }
 
-header {
+.header {
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header--big {
     height: 100vh;
     background-image: url(karsten-winegeart-5PVXkqt2s9k-unsplash.jpg);
     max-width: 1400px;
@@ -57,7 +64,7 @@ nav a:hover {
 }
 
 main {
-    display: none;
+    display: flex;
     padding: 2rem;
     gap: 2rem;
     flex-wrap: wrap;
@@ -121,4 +128,8 @@ ul {
     box-shadow: inset 2px 2px 6px rgba(56, 57, 49, 0.312);
     border-radius: 5px;
     padding: .5rem;
+}
+
+footer nav a {
+    align-self: center;
 }
