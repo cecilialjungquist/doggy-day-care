@@ -3,7 +3,6 @@ const checkbox = document.getElementById('checkbox');
 const searchField = document.getElementById('search-field');
 const searchBtn = document.getElementById('search-btn');
 let dogs = '';
-// let presentDogs = '';
 
 async function getDogs() {
 
@@ -26,7 +25,6 @@ async function getDogs() {
                     <li>phone: ${dog.owner.phoneNumber}</li>
                 </ul>
             `;
-
         dogSectionEl.appendChild(newDog);
         
         if (!dog.present) {

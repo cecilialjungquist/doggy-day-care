@@ -61,11 +61,8 @@ h2 {
 }
 
 nav a:hover {
-    color: #24556b;
+    transform: scale(1.1);
 }
-/* nav a:hover span {
-    animation: move 500ms ease-in forwards;
-} */
 
 main {
     display: flex;
@@ -195,15 +192,6 @@ footer nav a {
     align-self: center;
 }
 
-/* @keyframes move {
-    from {
-        transform: translateX(0);
-    } to {
-        transform: translateX(200%);
-        opacity: 0;
-    }
-    
-} */
 
 @media screen and (min-width: 730px) {
 
