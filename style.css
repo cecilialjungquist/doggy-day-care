@@ -65,7 +65,6 @@ nav a:hover {
 
 main {
     display: flex;
-    padding: 2rem;
     gap: 2rem;
     flex-wrap: wrap;
     justify-content: center;
@@ -119,6 +118,60 @@ main h2 {
     border-radius: 5px;
     margin-bottom: 1rem;
     box-shadow: 0px 0px 6px rgba(56, 57, 49, 0.312);
+}
+
+form {
+    padding: 3rem 0rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    font-family: 'Lacquer', cursive;
+    color: white;
+}
+
+form .checkbox-input {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    font-size: 1.2rem;
+    accent-color: rgb(12, 165, 78);
+}
+
+form .text-input {
+    display: flex;
+    flex-direction: column;
+    width: 18.75rem;
+    gap: 1rem;
+}
+
+form .text-input input {
+    padding: .2rem;
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+form .text-input input:focus {
+    outline: none;
+}
+form .text-input button {
+    appearance: none;
+    border: none;
+    font-family: 'Lacquer', cursive;
+    padding: .8rem 2rem;
+    font-size: 1.8rem;
+    border-radius: 5px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.278);
+    color: #176283;
+}
+form .text-input button:hover {
+    background-color: #1763834d;
+    color: white;
+}
+form .text-input button:active {
+    color: #176283;
+    box-shadow: none;
 }
 
 ul {

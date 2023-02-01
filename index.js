@@ -1,19 +1,19 @@
-const ourDogsEl = document.getElementById('our-dogs');
 let dogSectionEl = document.querySelector('.dog-section');
-console.log(dogSectionEl);
-const takeMeBackEl = document.getElementById('take-me-back');
-
+const checkbox = document.getElementById('checkbox');
+const searchField = document.getElementById('search-field');
+const searchBtn = document.getElementById('search-btn');
+let dogs = '';
+let presentDogs = '';
 
 async function getDogs() {
-    let dogs = await fetch('dogs.json');
+
+    dogs = await fetch('dogs.json');
     dogs = await dogs.json();
-    console.log(dogs);
-
+    
     dogs.forEach(dog => {
-
-        dogSectionEl.innerHTML += `
-            <article class="dog-card">
-                <aside id="${dog.chipNumber}">here</aside>
+        let newDog = `
+            <article class="dog-card" id="${dog.chipNumber}">
+                <aside>here</aside>
                 <img src="${dog.img}" alt="dog">
                 <ul>
                     <li>name: ${dog.name}</li>
@@ -24,27 +24,58 @@ async function getDogs() {
                     <li>phone: ${dog.owner.phoneNumber}</li>
                 </ul>
             </article>
-        `
+            `
+        dogSectionEl.innerHTML += newDog;
+
+        
         if (!dog.present) {
-            document.getElementById(dog.chipNumber).style.display = 'none';
-        }
-
+            // Kom på en bättre lösning här
+            document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
+            // document.getElementById(dog.chipNumber).style.display = 'none';
+        } else {
+            presentDogs += newDog;
+        };
+        // Lagrar html så den alltid finns
+        dog.html = newDog;
+        
     });
+    // Hur blir denna global utan att jag har lagrat den i nåt?
+    return dogs;
 };
-
-// ourDogsEl.addEventListener('click', () => {
-//     document.querySelector('header').style.display = 'none';
-//     document.querySelector('main').style.display = 'flex';
-
-// });
 
 getDogs();
 
-// takeMeBackEl.addEventListener('click', () => {
-//     document.querySelector('header').style.display = 'flex';
-//     document.querySelector('main').style.display = 'none';
-// })
+checkbox.addEventListener('change', () => {
+    let val = checkbox.checked;
 
-// om hunden inte är här, display = none
-// glöm inte take me back
-// hantera error?
+    if (val) {
+        dogSectionEl.innerHTML = presentDogs;
+    } else {
+        location.reload();
+    }
+});
+
+searchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Töm checkboxen
+    checkbox.checked = false;
+    let searchTerm = searchField.value;
+    searchTerm = searchTerm.toLowerCase();
+    // Töm dog-section
+    dogSectionEl.innerHTML = '';
+
+    dogs.forEach(dog => {
+        if (dog.name.toLowerCase() === searchTerm 
+            || dog.owner.name.toLowerCase() === searchTerm
+            || dog.owner.phoneNumber === searchTerm 
+            || dog.owner.lastName.toLowerCase() === searchTerm
+            || dog.owner.name.toLowerCase() + ' ' + dog.owner.lastName.toLowerCase() === searchTerm ) {
+
+            dogSectionEl.innerHTML += dog.html;
+
+            if (!dog.present) {
+                document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
+            }
+        }
+    });
+});
