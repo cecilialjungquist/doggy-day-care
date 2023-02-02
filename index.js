@@ -10,6 +10,7 @@ async function getDogs() {
     dogs = await dogs.json();
     
     dogs.forEach(dog => {
+        checkStatus(dog.img);
         let newDog = document.createElement('article');
         newDog.classList.add('dog-card');
         newDog.setAttribute('id', dog.chipNumber);
@@ -37,6 +38,13 @@ async function getDogs() {
     });
 };
 
+async function checkStatus(urlToCheck) {
+    let img = await fetch(urlToCheck);
+    if (img.status != 200) {
+        // kod som gör nåt
+    }
+}
+
 getDogs();
 
 checkbox.addEventListener('change', () => {
@@ -56,6 +64,7 @@ checkbox.addEventListener('change', () => {
 
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
+
     // Töm checkboxen
     checkbox.checked = false;
     let searchTerm = searchField.value;
