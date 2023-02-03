@@ -21,8 +21,13 @@ body {
     background-image: linear-gradient(#1C82AD, #166288);
 }
 
+.wrapper {
+    max-width: 1350px;
+    margin: auto;
+}
+
 .header {
-    max-width: 1400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
