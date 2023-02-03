@@ -15,9 +15,9 @@ async function getDogs() {
 };
 
 async function renderDog(dog) {
-
+    // Returnerar response
     let img = await fetch(dog.img);
-    console.log(img);
+    // Kollar om status på response är 404 och ersätter isf
     if (img.status === 404) {
         dog.img = 'karsten-winegeart-5PVXkqt2s9k-unsplash.jpg';
     }
