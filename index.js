@@ -5,55 +5,61 @@ const searchBtn = document.getElementById('search-btn');
 let dogs = '';
 
 async function getDogs() {
-
-    dogs = await fetch('dogs.json');
-    dogs = await dogs.json();
-    
-    dogs.forEach(dog => {
-        renderDog(dog)
-    });
+    try {
+        dogs = await fetch('dogs.json');
+        dogs = await dogs.json();
+        
+        dogs.forEach(dog => {
+            renderDog(dog);
+        })
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 async function renderDog(dog) {
-    // Returnerar response
-    let img = await fetch(dog.img);
-    // Kollar om status på response är 404 och ersätter isf
-    if (img.status === 404) {
-        dog.img = 'karsten-winegeart-5PVXkqt2s9k-unsplash.jpg';
-    }
-
-    let newDog = document.createElement('article');
-    newDog.classList.add('dog-card');
-    newDog.setAttribute('id', dog.chipNumber);
-    newDog.innerHTML = `
-            <aside>here</aside>
-            <img src="${dog.img}" alt="dog">
-            <ul>
-                <li>name: ${dog.name}</li>
-                <li>age: ${dog.age}</li>
-                <li>sex: ${dog.sex}</li>
-                <li>chipID: ${dog.chipNumber}</li>
-                <li>owner: ${dog.owner.name} ${dog.owner.lastName}</li>
-                <li>phone: ${dog.owner.phoneNumber}</li>
-            </ul>
-        `;
-    dogSectionEl.appendChild(newDog);
+    try {
+        // Returnerar response
+        let img = await fetch(dog.img);
+        // Kollar om status på response är 404 och ersätter isf
+        if (img.status === 404) {
+            dog.img = 'karsten-winegeart-5PVXkqt2s9k-unsplash.jpg';
+        }
     
-    if (!dog.present) {
-        // Kom på en bättre lösning här?
-        document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
+        let newDog = document.createElement('article');
+        newDog.classList.add('dog-card');
+        newDog.setAttribute('id', dog.chipNumber);
+        newDog.innerHTML = `
+                <aside>here</aside>
+                <img src="${dog.img}" alt="dog">
+                <ul>
+                    <li>name: ${dog.name}</li>
+                    <li>age: ${dog.age}</li>
+                    <li>sex: ${dog.sex}</li>
+                    <li>chipID: ${dog.chipNumber}</li>
+                    <li>owner: ${dog.owner.name} ${dog.owner.lastName}</li>
+                    <li>phone: ${dog.owner.phoneNumber}</li>
+                </ul>
+            `;
+        dogSectionEl.appendChild(newDog);
+        
+        if (!dog.present) {
+            document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
+        }
+    
+        // Lagrar html så den alltid finns
+        dog.html = newDog;
+    } catch (error) {
+        console.log(error);
     }
-
-    // Lagrar html så den alltid finns
-    dog.html = newDog;
 }
 
 getDogs();
 
 checkbox.addEventListener('change', () => {
-    let val = checkbox.checked;
+    let checkboxValue = checkbox.checked;
 
-    if (val) {
+    if (checkboxValue) {
         dogSectionEl.innerHTML = '';
         dogs.forEach(dog => {
             if (dog.present) {
@@ -67,11 +73,12 @@ checkbox.addEventListener('change', () => {
 
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
-
     // Töm checkboxen
     checkbox.checked = false;
+
     let searchTerm = searchField.value;
     searchTerm = searchTerm.toLowerCase();
+    
     // Töm dog-section
     dogSectionEl.innerHTML = '';
 
