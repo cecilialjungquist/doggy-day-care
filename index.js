@@ -10,39 +10,42 @@ async function getDogs() {
     dogs = await dogs.json();
     
     dogs.forEach(dog => {
-        checkStatus(dog.img);
-        let newDog = document.createElement('article');
-        newDog.classList.add('dog-card');
-        newDog.setAttribute('id', dog.chipNumber);
-        newDog.innerHTML = `
-                <aside>here</aside>
-                <img src="${dog.img}" alt="dog">
-                <ul>
-                    <li>name: ${dog.name}</li>
-                    <li>age: ${dog.age}</li>
-                    <li>sex: ${dog.sex}</li>
-                    <li>chipID: ${dog.chipNumber}</li>
-                    <li>owner: ${dog.owner.name} ${dog.owner.lastName}</li>
-                    <li>phone: ${dog.owner.phoneNumber}</li>
-                </ul>
-            `;
-        dogSectionEl.appendChild(newDog);
-        
-        if (!dog.present) {
-            // Kom på en bättre lösning här?
-            document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
-        }
-
-        // Lagrar html så den alltid finns
-        dog.html = newDog;
+        renderDog(dog)
     });
 };
 
-async function checkStatus(urlToCheck) {
-    let img = await fetch(urlToCheck);
-    if (img.status != 200) {
-        console.log('fel');
+async function renderDog(dog) {
+
+    let img = await fetch(dog.img);
+    console.log(img);
+    if (img.status === 404) {
+        dog.img = 'karsten-winegeart-5PVXkqt2s9k-unsplash.jpg';
     }
+
+    let newDog = document.createElement('article');
+    newDog.classList.add('dog-card');
+    newDog.setAttribute('id', dog.chipNumber);
+    newDog.innerHTML = `
+            <aside>here</aside>
+            <img src="${dog.img}" alt="dog">
+            <ul>
+                <li>name: ${dog.name}</li>
+                <li>age: ${dog.age}</li>
+                <li>sex: ${dog.sex}</li>
+                <li>chipID: ${dog.chipNumber}</li>
+                <li>owner: ${dog.owner.name} ${dog.owner.lastName}</li>
+                <li>phone: ${dog.owner.phoneNumber}</li>
+            </ul>
+        `;
+    dogSectionEl.appendChild(newDog);
+    
+    if (!dog.present) {
+        // Kom på en bättre lösning här?
+        document.querySelector(`#${dog.chipNumber} aside`).style.display = 'none';
+    }
+
+    // Lagrar html så den alltid finns
+    dog.html = newDog;
 }
 
 getDogs();
