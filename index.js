@@ -41,7 +41,7 @@ async function getDogs() {
 async function checkStatus(urlToCheck) {
     let img = await fetch(urlToCheck);
     if (img.status != 200) {
-        // kod som gör nåt
+        console.log('fel');
     }
 }
 
